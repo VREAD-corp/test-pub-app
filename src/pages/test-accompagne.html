@@ -1,0 +1,68 @@
+<!--meta {"path": "/test-accompagne/", "page": "offer", "title": "Test publicitaire accompagné pour app : budget plafonné, bilan à 7 jours", "description": "Test publicitaire plafonné pour savoir si vos installations payantes peuvent se rembourser : seuil calculé, campagne en pause, bilan au 7e jour. Pré-commande sans paiement.", "scripts": ["preorder.js"]}-->
+<p><span class="badge">Pré-commande, sans paiement</span></p>
+<h1>Test publicitaire accompagné</h1>
+<p class="lead">Un test court et plafonné pour savoir si la publicité peut rembourser vos installations, avant d'engager 3 000 ou 5 000 € de budget. Vous gardez la main sur votre compte publicitaire et sur chaque euro dépensé.</p>
+
+<div class="note"><p><strong>Le service n'est pas encore ouvert.</strong> Nous mesurons la demande jusqu'au 27 octobre 2026. Une pré-commande ne demande aucune carte et ne vous engage à rien. Si le service ouvre, nous vous écrivons avec un devis et une date ; vous décidez alors de commander ou non. Nous n'avons pas encore de cas client publié : les premiers tests serviront d'exemple, avec votre accord et sans vos chiffres.</p></div>
+
+<section id="offres">
+<h2>Deux formules</h2>
+<div class="tiers">
+<div class="card tier-690"><p><span class="badge rec">Recommandé</span></p><h3>Test accompagné</h3><p class="price">690 € HT</p>
+<ul>
+<li>Seuil de rentabilité calculé avec vos vrais chiffres (prix, store, TVA, essai, remboursements) ;</li>
+<li>vérification du suivi des installations et des achats avant la moindre dépense ;</li>
+<li>campagne Meta préparée dans votre compte, en pause, avec un budget plafonné et 10 visuels ;</li>
+<li>règles d'arrêt et de poursuite écrites à l'avance ;</li>
+<li>bilan au 7e jour : poursuivre, corriger ou arrêter.</li>
+</ul></div>
+<div class="card tier-390"><p><span class="badge rec">Recommandé</span></p><h3>Plan de test seul</h3><p class="price">390 € HT</p>
+<ul>
+<li>Seuil de rentabilité calculé avec vos vrais chiffres ;</li>
+<li>vérification du suivi des installations et des achats ;</li>
+<li>plan de campagne écrit (audiences, budget plafonné, règles d'arrêt) que vous lancez vous-même.</li>
+</ul></div>
+</div>
+<p>TVA non applicable, article 293 B du CGI. Facturation aux entreprises établies en France (SIREN) et hors de l'Union européenne. Le budget publicitaire n'est pas compris : vous le payez directement à Meta, avec votre propre moyen de paiement.</p>
+</section>
+
+<section id="regles">
+<h2>Ce que nous faisons, et ce que nous ne faisons pas</h2>
+<p>Nous travaillons dans votre compte publicitaire avec un accès partenaire que vous accordez et retirez quand vous voulez ; nous ne demandons jamais votre mot de passe. Les campagnes sont créées en pause : c'est vous qui les activez. Nous n'achetons pas d'espace publicitaire en votre nom et nous ne manipulons pas votre budget.</p>
+<p>Aucun résultat n'est promis. Le plus souvent, un test honnête conclut qu'il ne faut pas augmenter le budget : c'est une réponse utile si elle arrive avant les 5 000 premiers euros. Si le calculateur montre un seuil inférieur à 0,50 € par installation, nous vous le dirons avant toute commande, car un test aurait alors peu de chances de vous être utile.</p>
+<p>Le travail est préparé par Octave, l'agent IA de READ FRANCE SAS, et relu par une personne avant tout envoi. Les catégories soumises à des règles publicitaires strictes (santé, finance, jeux d'argent) sont étudiées au cas par cas.</p>
+</section>
+
+<section id="precommande" class="card">
+<h2 style="margin-top:0">Pré-commander un test</h2>
+<form id="preorder" novalidate>
+<fieldset class="f"><legend><b>Formule</b></legend>
+<label class="check"><input type="radio" name="offer" value="test-690" checked> <span>Test accompagné, 690 € HT</span></label>
+<label class="check"><input type="radio" name="offer" value="plan-390"> <span>Plan de test seul, 390 € HT</span></label></fieldset>
+<div class="f"><label for="email">E-mail professionnel</label><input id="email" name="email" type="email" required autocomplete="email"></div>
+<div class="f"><label for="company">Société ou studio</label><input id="company" name="company" type="text" required autocomplete="organization"></div>
+<div class="f"><label for="country">Pays de facturation</label><select id="country" name="country">
+<option value="FR">France</option><option value="CH">Suisse</option><option value="GB">Royaume-Uni</option><option value="US">États-Unis</option><option value="CA">Canada</option><option value="AU">Australie</option><option value="BE">Belgique</option><option value="LU">Luxembourg</option><option value="MC">Monaco</option><option value="EU">Autre pays de l'Union européenne</option><option value="ZZ">Autre pays hors UE</option></select>
+<p class="hint" id="eu-note" hidden>Nous ne facturons pas encore les entreprises de l'UE hors de France. Votre demande sera notée et nous vous préviendrons si cela change.</p></div>
+<div class="f" id="siren-row"><label for="siren">SIREN (9 chiffres)</label><input id="siren" name="siren" type="text" inputmode="numeric" autocomplete="off"></div>
+<div class="f"><label for="website">Lien de l'app (App Store, Google Play ou site), facultatif</label><input id="website" name="website" type="url" placeholder="https://"></div>
+<div class="f"><label for="role">Plateforme</label><select id="role" name="role"><option value="ios">iOS</option><option value="android">Android</option><option value="both">iOS et Android</option><option value="web">Application web</option></select></div>
+<div class="f"><label for="size">Budget publicitaire envisagé par mois</label><select id="size" name="size"><option value="0">Aucun pour l'instant</option><option value="lt1000">Moins de 1 000 €</option><option value="1000-5000">1 000 à 5 000 €</option><option value="gt5000">Plus de 5 000 €</option></select></div>
+<div class="f"><label for="message">Précisions (facultatif)</label><textarea id="message" name="message" maxlength="1000" placeholder="Prix, modèle d'abonnement, pays visés, échéance…"></textarea></div>
+<div class="hp" aria-hidden="true"><label for="hp">Ne pas remplir</label><input id="hp" name="hp" type="text" tabindex="-1" autocomplete="off"></div>
+<div class="f"><label class="check"><input type="checkbox" name="consent" required> <span>J'accepte que READ FRANCE SAS conserve ces informations pour me recontacter au sujet de ce test, au plus tard 12 mois après la fin de la mesure (voir <a href="{{href:/confidentialite/}}">Confidentialité</a>). Aucune autre prospection.</span></label></div>
+<button class="btn" type="submit">Envoyer ma pré-commande</button>
+<p class="hint">Aucun paiement n'est demandé sur cette page.</p>
+<div id="preorder-msg" class="msg" role="status" aria-live="polite"></div>
+</form>
+</section>
+
+<section id="faq">
+<h2>Questions fréquentes</h2>
+<h3>Pourquoi un bilan au 7e jour ?</h3>
+<p>Sur la plupart des applications à abonnement, la moitié des conversions payantes arrivent le jour de l'installation (RevenueCat, 2026). Sept jours suffisent pour voir le coût par installation et par essai ; la conversion des essais longs se lit ensuite.</p>
+<h3>Quel budget prévoir pour le test ?</h3>
+<p>Nous le calculons avec vous à partir du seuil : assez pour obtenir quelques dizaines d'essais, avec un plafond que vous fixez. Il est payé directement à Meta.</p>
+<h3>Je n'ai pas encore de SIREN ou je suis dans un autre pays de l'UE</h3>
+<p>Envoyez quand même le formulaire : nous notons la demande, mais nous ne pouvons pas facturer aujourd'hui les entreprises de l'Union européenne établies hors de France.</p>
+</section>

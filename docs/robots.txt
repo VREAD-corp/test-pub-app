@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://outils.vread.fr/test-pub-app/sitemap.xml

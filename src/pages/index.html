@@ -1,0 +1,51 @@
+<!--meta {"path": "/", "page": "home", "title": "Calculateur de seuil de rentabilité publicitaire pour app (gratuit)", "description": "Combien pouvez-vous payer une installation ? Entrez taux d'essai, conversion, revenu par payant, remboursements et commission du store : AppSeuil calcule le coût par installation maximal.", "scripts": ["calc-core.js", "calc.js"]}-->
+<h1>Combien pouvez-vous payer une installation de votre app ?</h1>
+<p class="lead">Avant de lancer une campagne Meta, Google ou Apple Search Ads, calculez le coût par installation au-delà duquel la publicité vous fait perdre de l'argent. Le calcul tient compte de la TVA, de la commission du store et des remboursements.</p>
+
+<section id="calculateur" class="card">
+<form id="calc" class="calc" novalidate>
+<div class="f"><label for="currency">Devise</label><select id="currency" name="currency"><option value="€">Euro (€)</option><option value="$">Dollar ($)</option></select></div>
+<div class="f"><label for="cpi">Coût par installation visé ou constaté</label><input id="cpi" name="cpi" type="number" step="0.01" min="0" value="2" inputmode="decimal"><p class="hint">Voir les repères plus bas.</p></div>
+<fieldset class="f"><legend><b>Comment vos utilisateurs deviennent payants</b></legend>
+<label class="check"><input type="radio" name="model" value="trial" checked> <span>Essai gratuit puis abonnement</span></label>
+<label class="check"><input type="radio" name="model" value="direct"> <span>Achat ou abonnement direct, sans essai</span></label></fieldset>
+<div id="trial-fields" class="f"><label for="trialRate">Installations qui démarrent un essai (%)</label><input id="trialRate" name="trialRate" type="number" step="0.1" min="0" max="100" value="6.5" inputmode="decimal">
+<label for="trialToPaid" style="margin-top:10px">Essais qui deviennent payants (%)</label><input id="trialToPaid" name="trialToPaid" type="number" step="0.1" min="0" max="100" value="30" inputmode="decimal"></div>
+<div id="direct-fields" class="f" hidden><label for="directRate">Installations qui deviennent payantes (%)</label><input id="directRate" name="directRate" type="number" step="0.1" min="0" max="100" value="2" inputmode="decimal"></div>
+<div class="f"><label for="arpu">Revenu moyen par payant sur la période (prix payé, TVA comprise)</label><input id="arpu" name="arpu" type="number" step="0.01" min="0" value="40" inputmode="decimal"><p class="hint">Exemple : 4,99 par mois payé en moyenne 8 mois = 39,92.</p></div>
+<div class="f"><label for="vat">TVA comprise dans le prix (%)</label><input id="vat" name="vat" type="number" step="0.1" min="0" max="50" value="20" inputmode="decimal"><p class="hint">20 en France ; 0 pour un prix affiché hors taxe (États-Unis).</p></div>
+<div class="f"><label for="storePreset">Commission du store</label><select id="storePreset" name="storePreset"><option value="15">15 % : Apple Small Business Program, Google Play abonnements</option><option value="30">30 % : Apple, première année d'abonnement hors programme</option><option value="">Autre taux</option></select>
+<input id="storeFee" name="storeFee" type="number" step="0.1" min="0" max="100" value="15" aria-label="Commission du store (%)" style="margin-top:8px"></div>
+<div class="f"><label for="refund">Remboursements (% des paiements)</label><input id="refund" name="refund" type="number" step="0.1" min="0" max="100" value="4" inputmode="decimal"></div>
+<div class="f" style="align-self:end"><button class="btn" type="submit">Calculer le seuil</button></div>
+</form>
+<p class="hint">Les valeurs par défaut sont un exemple proche des médianes publiées, pas une prévision. Le calcul se fait dans votre navigateur : rien de ce que vous saisissez n'est envoyé.</p>
+</section>
+<div id="calc-out" hidden aria-live="polite"></div>
+
+<section id="reperes">
+<h2>Repères chiffrés et leurs sources</h2>
+<p>Ce sont des médianes ou des moyennes sur des milliers d'applications. La vôtre peut se situer très au-dessus ou très en dessous : servez-vous-en pour vérifier qu'une hypothèse n'est pas absurde, pas pour remplacer vos propres chiffres.</p>
+<div class="tablewrap"><table>
+<tr><th>Repère</th><th>Valeur publiée</th><th>Source</th></tr>
+<tr><td>Coût par installation, Santé et forme, États-Unis</td><td>iOS 4,67 à 5,22 $ ; Android 3,02 à 3,45 $ (T2 et T3 2026)</td><td rowspan="4"><a href="https://www.appsflyer.com/benchmarks/">AppsFlyer Benchmarks</a>, CPI moyen tous canaux, données lues le 13 octobre 2026</td></tr>
+<tr><td>Coût par installation, Utilitaires et productivité, États-Unis</td><td>iOS 4,35 à 4,49 $ ; Android 1,82 à 2,18 $</td></tr>
+<tr><td>Coût par installation, Utilitaires et productivité, France</td><td>iOS 1,67 à 1,91 $ ; Android 0,41 à 0,47 $</td></tr>
+<tr><td>Coût par installation, Santé et forme, France</td><td>2,59 à 2,78 $ (toutes plateformes)</td></tr>
+<tr><td>Installations qui démarrent un essai en 30 jours (médiane)</td><td>Business 9,1 % ; Santé et forme 6,9 % ; Utilitaires 6,5 % ; Jeux 4,4 %</td><td rowspan="4"><a href="https://www.revenuecat.com/state-of-subscription-apps/">RevenueCat, State of Subscription Apps 2026</a></td></tr>
+<tr><td>Essais qui deviennent payants (médiane)</td><td>App Store 32,6 % ; Google Play 32,5 % ; de 22,2 % (Photo et vidéo) à 43,5 % (Voyage)</td></tr>
+<tr><td>Installations payantes à 35 jours (médiane)</td><td>2,0 % dans le monde ; 2,8 % en Amérique du Nord</td></tr>
+<tr><td>Remboursements (médiane)</td><td>3 à 4 % dans la plupart des catégories ; 3,4 % en Amérique du Nord</td></tr>
+<tr><td>Revenu par installation (médiane)</td><td>Amérique du Nord : 0,38 $ à 14 jours, 0,55 $ à 60 jours ; Europe de l'Ouest : 0,25 $ et 0,33 $</td><td>même rapport RevenueCat</td></tr>
+<tr><td>Commission Apple</td><td>15 % avec le Small Business Program (moins de 1 M$ de revenus) ; abonnements hors programme : 30 % la première année, 15 % ensuite</td><td><a href="https://developer.apple.com/app-store/small-business-program/">Apple, Small Business Program</a> et <a href="https://developer.apple.com/app-store/subscriptions/">Apple, abonnements</a></td></tr>
+<tr><td>Commission Google Play, abonnements</td><td>10 %, plus 5 % de frais de facturation, dans l'EEE, au Royaume-Uni et aux États-Unis (nouvelles règles depuis le 30 juin 2026)</td><td><a href="https://support.google.com/googleplay/android-developer/answer/112622?hl=fr">Google Play Console, frais de service</a></td></tr>
+</table></div>
+<p>Ce que disent ces chiffres pris ensemble : aux États-Unis, une installation iOS coûte en moyenne de 4,35 à 5,22 $ selon la catégorie, soit 8 à 10 fois le revenu médian par installation à 60 jours (0,55 $). La publicité ne paie donc que pour les applications nettement au-dessus de la médiane, ou qui gardent leurs abonnés longtemps. Faites le calcul avec vos propres taux avant de dépenser.</p>
+</section>
+
+<section id="methode">
+<h2>Comment le seuil est calculé</h2>
+<p>Revenu net par payant = prix payé ÷ (1 + TVA) × (1 − commission) × (1 − remboursements). Le coût par installation maximal est ce revenu net multiplié par la part des installations qui paient (essai × conversion, ou achat direct). Au-dessus de ce seuil, chaque installation achetée coûte plus qu'elle ne rapporte sur la période retenue.</p>
+<p>Le calcul ne compte ni vos coûts fixes, ni les frais de l'outil de mesure, ni la valeur d'un utilisateur gratuit qui recommande l'app. Il ne tient pas compte non plus des installations obtenues sans publicité qu'une campagne peut entraîner.</p>
+<p><a class="btn" href="{{href:/test-accompagne/}}" data-mesure="cta_click" data-detail="home">Voir le test publicitaire accompagné</a></p>
+</section>

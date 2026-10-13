@@ -1,0 +1,9 @@
+{
+  "name": "test-pub-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node build.mjs && node tests/site.check.mjs && node tests/gas.test.mjs && node tests/calc.test.mjs && node tests/cro.check.mjs src/assets/cro.js"
+  }
+}
