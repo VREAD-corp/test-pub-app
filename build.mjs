@@ -10,8 +10,9 @@ import SITE from './site.config.mjs';
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'docs');
 const SRC = path.join(ROOT, 'src');
-const ORIGIN = 'https://outils.vread.fr';
-const BASE = '/' + SITE.repo + '/';
+const ORIGIN = SITE.origin;   // site served at the root of its own subdomain (brand Jalonel)
+const HOST = new URL(ORIGIN).hostname;
+const BASE = '/';
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const hash = (buf) => crypto.createHash('sha256').update(buf).digest('hex').slice(0, 10);
 
@@ -21,7 +22,7 @@ fs.mkdirSync(path.join(OUT, 'assets'), { recursive: true });
 // 1. Assets (fingerprinted with ?v=). mesure.js is generated per site from the shared template.
 if (SITE.prebuild) await SITE.prebuild({ ROOT, SRC });
 const mesure = fs.readFileSync(path.join(ROOT, 'tools/mesure.template.js'), 'utf8')
-  .replace(/__BRAND__/g, SITE.brand).replace(/__SITE__/g, SITE.site).replace(/__API__/g, SITE.api).replace(/__XP__/g, SITE.variantXp);
+  .replace(/__BRAND__/g, SITE.brand).replace(/__SITE__/g, SITE.site).replace(/__API__/g, SITE.api).replace(/__XP__/g, SITE.variantXp).replace(/__HOST__/g, HOST);
 fs.writeFileSync(path.join(SRC, 'assets/mesure.js'), mesure);
 const ver = {};
 for (const f of fs.readdirSync(path.join(SRC, 'assets'))) {
@@ -31,6 +32,9 @@ for (const f of fs.readdirSync(path.join(SRC, 'assets'))) {
 }
 for (const f of SITE.static || []) { fs.mkdirSync(path.dirname(path.join(OUT, f[1])), { recursive: true }); fs.copyFileSync(path.join(ROOT, f[0]), path.join(OUT, f[1])); }
 fs.writeFileSync(path.join(OUT, '.nojekyll'), '');
+// Custom domain (GitHub Pages, legacy build from /docs) and IndexNow key, served at the site root.
+fs.writeFileSync(path.join(OUT, 'CNAME'), HOST + '\n');
+for (const k of SITE.indexNowKeys || []) fs.writeFileSync(path.join(OUT, k + '.txt'), k);
 
 // 2. Pages.
 const pages = fs.readdirSync(path.join(SRC, 'pages')).filter((f) => f.endsWith('.html')).sort().map((f) => {
@@ -74,7 +78,7 @@ ${p.noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" 
 <link rel="stylesheet" href="${asset(p, 'style.css')}">
 <script>window.SITE = ${JSON.stringify({ site: SITE.site, api: SITE.api, xp: SITE.variantXp, consent: SITE.consentVersion, base: R('/'), mail: 'octave@vread.fr' })};
 window.OCTAVE_XP = ${JSON.stringify(SITE.xp)};</script>
-<script src="${asset(p, 'cro.js')}" data-site="${SITE.site}" data-api="${SITE.api}" data-hosts="outils.vread.fr" data-cta="a.btn,button.btn"></script>
+<script src="${asset(p, 'cro.js')}" data-site="${SITE.site}" data-api="${SITE.api}" data-hosts="${HOST} outils.vread.fr" data-cta="a.btn,button.btn"></script>
 <script src="${asset(p, 'mesure.js')}" defer></script>
 ${(SITE.scripts || []).concat(p.scripts || []).map((s) => `<script src="${asset(p, s)}" defer></script>`).join('\n')}
 ${schema}
@@ -89,8 +93,8 @@ ${schema}
 ${body.trim()}
 </main>
 <footer class="foot"><div class="wrap">
-<p>${esc(SITE.brand)} est un service de READ FRANCE SAS (Paris), conçu et exploité par Octave, son agent IA. ${esc(SITE.footerNote || '')}</p>
-<p><a href="${R('/confidentialite/')}">Confidentialité</a> · <a href="${R('/mentions-legales/')}">Mentions légales</a> · <a href="https://github.com/VREAD-corp/${SITE.repo}">Code source</a> · <a href="mailto:octave@vread.fr">octave@vread.fr</a></p>
+<p>${esc(SITE.brand)} est conçu et exploité par Octave, un agent IA. ${esc(SITE.footerNote || '')}</p>
+<p><a href="https://jalonel.com/">Une marque Jalonel</a> · <a href="${R('/confidentialite/')}">Confidentialité</a> · <a href="${R('/mentions-legales/')}">Mentions légales</a> · <a href="https://github.com/VREAD-corp/${SITE.repo}">Code source</a> · <a href="mailto:octave@vread.fr">octave@vread.fr</a></p>
 <p class="small">Aucun cookie. Mesure d'audience anonyme et agrégée, sans identifiant.</p>
 </div></footer>
 </body>

@@ -1,4 +1,4 @@
-https://outils.vread.fr/test-pub-app/confidentialite/
-https://outils.vread.fr/test-pub-app/
-https://outils.vread.fr/test-pub-app/mentions-legales/
-https://outils.vread.fr/test-pub-app/test-accompagne/
+https://appseuil.jalonel.com/confidentialite/
+https://appseuil.jalonel.com/
+https://appseuil.jalonel.com/mentions-legales/
+https://appseuil.jalonel.com/test-accompagne/

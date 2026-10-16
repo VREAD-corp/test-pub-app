@@ -1,5 +1,5 @@
-// Browser test (playwright-core + a local Chromium). Local: serves docs/ under /<repo>/ and mocks the Apps Script.
-// Live: BASE_URL=https://outils.vread.fr/<repo>/ node tests/e2e.mjs  (real form -> real Sheet with an @example.com
+// Browser test (playwright-core + a local Chromium). Local: serves docs/ at the root and mocks the Apps Script.
+// Live: BASE_URL=https://<sub>.jalonel.com/ node tests/e2e.mjs  (real form -> real Sheet with an @example.com
 // address, flagged test and purged afterwards when <SITE>_ADMIN_KEY is set; measurement off via octave_notrack=1).
 import http from 'node:http';
 import fs from 'node:fs';
@@ -20,14 +20,13 @@ if (!LIVE) {
   const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.xml': 'application/xml', '.pdf': 'application/pdf', '.txt': 'text/plain' };
   server = http.createServer((req, res) => {
     let u = decodeURIComponent(req.url.split('?')[0]);
-    if (!u.startsWith('/' + SITE.repo + '/')) { res.writeHead(404); return res.end(); }
-    let f = path.join(ROOT, 'docs', u.slice(SITE.repo.length + 1));
+    let f = path.join(ROOT, 'docs', u);
     if (f.endsWith('/')) f += 'index.html';
     if (!fs.existsSync(f)) { res.writeHead(404, { 'content-type': types['.html'] }); return res.end(fs.readFileSync(path.join(ROOT, 'docs/404.html'))); }
     res.writeHead(200, { 'content-type': types[path.extname(f)] || 'application/octet-stream' });
     res.end(fs.readFileSync(f));
   }).listen(0);
-  base = `http://127.0.0.1:${server.address().port}/${SITE.repo}/`;
+  base = `http://127.0.0.1:${server.address().port}/`;
 }
 
 const exe = process.env.CHROME || ['chromium-1248', 'chromium-1234', 'chromium-1228'].map((d) => path.join(process.env.HOME, '.cache/ms-playwright', d, 'chrome-linux/chrome')).find((p) => fs.existsSync(p))

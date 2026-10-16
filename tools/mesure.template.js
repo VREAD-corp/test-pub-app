@@ -1,7 +1,7 @@
 /*! __BRAND__ anonymous audience: no cookie, no identifier, no IP stored, nothing typed is read. Same pattern as octave-checkout gas/web/mesure.js (v:2) */
 ((n,l,d)=>{let q=new URLSearchParams(l.search),A=(k,f)=>d.addEventListener(k,f,!0),K='octave_notrack',b,t,x='',s,go;
 window.mTrack=()=>{};
-if(n.doNotTrack=='1'||n.globalPrivacyControl||l.hostname!='outils.vread.fr')return;
+if(n.doNotTrack=='1'||n.globalPrivacyControl||l.hostname!='__HOST__'&&l.hostname!='outils.vread.fr')return;
 // Not a visit (counted apart as "excluded"): our tests (?octave_notrack=1, kept in this browser, =0 clears), automated browsers, crawlers. The user agent is read here only, never sent.
 try{s=localStorage;q.has(K)&&(q.get(K)=='1'?s.setItem(K,'1'):s.removeItem(K));s.getItem(K)=='1'&&(x='notrack')}catch{}
 x=x||(q.get(K)=='1'?'notrack':n.webdriver?'webdriver':/bot\b|crawl|spider|slurp|headless|lighthouse|pagespeed|inspectiontool|googleother|mediapartners|bingpreview|phantom|puppeteer|playwright|selenium/i.test(n.userAgent||'')?'bot':'');

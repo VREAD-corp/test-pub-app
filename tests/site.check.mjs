@@ -23,10 +23,12 @@ for (const f of files) {
   if ((h.match(/<h1[\s>]/g) || []).length !== 1) err(f, 'exactly one h1');
   if (!is404) {
     const c = h.match(/<link rel="canonical" href="([^"]+)"/);
-    if (!c) err(f, 'canonical'); else if (!sitemap.includes('<loc>' + c[1] + '</loc>')) err(f, 'not in sitemap: ' + c[1]);
+    if (!c) err(f, 'canonical'); else if (!c[1].startsWith(SITE.origin + '/')) err(f, 'canonical not on ' + SITE.origin); else if (!sitemap.includes('<loc>' + c[1] + '</loc>')) err(f, 'not in sitemap: ' + c[1]);
   }
   if (!h.includes(`data-site="${SITE.site}"`) || !h.includes(`data-api="${SITE.api}"`)) err(f, 'cro.js tag');
   if (!/assets\/mesure\.js\?v=/.test(h)) err(f, 'mesure.js');
+  if (!h.includes('<a href="https://jalonel.com/">Une marque Jalonel</a>')) err(f, 'Jalonel footer');
+  if (/outils\.vread\.fr\/|vread-corp\.github\.io/.test(h.replace(/data-hosts="[^"]*"/, ''))) err(f, 'old URL');
   if (!h.includes('window.OCTAVE_XP')) err(f, 'OCTAVE_XP');
   for (const m of h.matchAll(/<script[^>]+src="([^"]+)"/g)) if (/^(https?:)?\/\//.test(m[1])) err(f, 'third-party script ' + m[1]);
   for (const m of h.matchAll(/<link[^>]+href="(https?:[^"]+)"/g)) if (!m[0].includes('canonical')) err(f, 'external stylesheet/link ' + m[1]);
@@ -55,7 +57,10 @@ for (const r of lint) if (!r.skipped && r.file.endsWith('.html') && (r.score < 8
 // cro.js byte-identical to the master copy when it is available (local runs)
 const master = path.join(ROOT, '../octave-checkout/gas/web/cro.js');
 if (fs.existsSync(master)) assert.equal(fs.readFileSync(path.join(DOCS, 'assets/cro.js'), 'utf8'), fs.readFileSync(master, 'utf8'), 'cro.js differs from octave-checkout/gas/web/cro.js');
+assert.equal(fs.readFileSync(path.join(DOCS, 'CNAME'), 'utf8').trim(), new URL(SITE.origin).hostname, 'CNAME');
+for (const k of SITE.indexNowKeys || []) assert.equal(fs.readFileSync(path.join(DOCS, k + '.txt'), 'utf8'), k, 'IndexNow key file');
+assert.ok(fs.readFileSync(path.join(DOCS, 'sitemap.xml'), 'utf8').includes('<loc>' + SITE.origin + '/</loc>'), 'sitemap on the new origin');
 const mesure = fs.readFileSync(path.join(DOCS, 'assets/mesure.js'), 'utf8');
-assert.ok(mesure.includes("v:2") && mesure.includes(`site:'${SITE.site}'`) && mesure.includes(SITE.api) && mesure.includes('octave_notrack'), 'mesure.js');
+assert.ok(mesure.includes("v:2") && mesure.includes(`site:'${SITE.site}'`) && mesure.includes(SITE.api) && mesure.includes('octave_notrack') && mesure.includes(`l.hostname!='${new URL(SITE.origin).hostname}'`), 'mesure.js');
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
 console.log(`site checks ok: ${files.length} pages, lint-ia >= 85 on all`);
