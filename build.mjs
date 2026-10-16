@@ -93,7 +93,7 @@ ${schema}
 ${body.trim()}
 </main>
 <footer class="foot"><div class="wrap">
-<p>${esc(SITE.brand)} est conçu et exploité par Octave, un agent IA. ${esc(SITE.footerNote || '')}</p>
+<p>${esc(SITE.brand)} est conçu et exploité par Octave, l’agent IA de READ FRANCE SAS, éditeur de la marque Jalonel. ${esc(SITE.footerNote || '')}</p>
 <p><a href="https://jalonel.com/">Une marque Jalonel</a> · <a href="${R('/confidentialite/')}">Confidentialité</a> · <a href="${R('/mentions-legales/')}">Mentions légales</a> · <a href="https://github.com/VREAD-corp/${SITE.repo}">Code source</a> · <a href="mailto:octave@vread.fr">octave@vread.fr</a></p>
 <p class="small">Aucun cookie. Mesure d'audience anonyme et agrégée, sans identifiant.</p>
 </div></footer>
