@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://appseuil.jalonel.com/">
 <meta name="theme-color" content="#1d4ed8">
 <link rel="icon" href="./assets/icon.svg?v=640a817964" type="image/svg+xml">
-<link rel="stylesheet" href="./assets/style.css?v=9bbd01b186">
+<link rel="stylesheet" href="./assets/style.css?v=c3cfb955d2">
 <script>window.SITE = {"site":"test-pub-app","api":"https://script.google.com/macros/s/AKfycbzw9sbyjdlMH0cxdrKj7xM895FmdH92d6uwDiQjIREQg-dRWAr4pjlA3-D9spMcRD_2/exec","xp":"price","consent":"pc-2026-10-13","base":"./","mail":"contact@jalonel.com"};
 window.OCTAVE_XP = [{"id":"price","variants":["a","b"],"mode":"tab","param":"offre"}];</script>
 <script src="./assets/cro.js?v=d6be436b00" data-site="test-pub-app" data-api="https://script.google.com/macros/s/AKfycbzw9sbyjdlMH0cxdrKj7xM895FmdH92d6uwDiQjIREQg-dRWAr4pjlA3-D9spMcRD_2/exec" data-hosts="appseuil.jalonel.com" data-cta="a.btn,button.btn"></script>
@@ -31,26 +31,30 @@ window.OCTAVE_XP = [{"id":"price","variants":["a","b"],"mode":"tab","param":"off
 </div></header>
 <main id="main" class="wrap">
 <h1>Combien pouvez-vous payer une installation de votre app ?</h1>
-<p class="lead">Avant de lancer une campagne Meta, Google ou Apple Search Ads, calculez le coût par installation au-delà duquel la publicité vous fait perdre de l'argent. Le calcul tient compte de la TVA, de la commission du store et des remboursements.</p>
+<p class="lead">Le coût par installation au-delà duquel une campagne Meta, Google ou Apple Ads vous fait perdre de l'argent.</p>
 
 <section id="calculateur" class="card">
 <form id="calc" class="calc" novalidate>
-<div class="f"><label for="currency">Devise</label><select id="currency" name="currency"><option value="€">Euro (€)</option><option value="$">Dollar ($)</option></select></div>
-<div class="f"><label for="cpi">Coût par installation visé ou constaté</label><input id="cpi" name="cpi" type="number" step="0.01" min="0" value="2" inputmode="decimal"><p class="hint">Voir les repères plus bas.</p></div>
-<fieldset class="f"><legend><b>Comment vos utilisateurs deviennent payants</b></legend>
+<div class="f"><label for="cpi">Coût par installation visé ou constaté</label><input id="cpi" name="cpi" type="number" step="0.01" min="0" value="2" inputmode="decimal"></div>
+<fieldset class="f model"><legend><b>Comment vos utilisateurs deviennent payants</b></legend>
 <label class="check"><input type="radio" name="model" value="trial" checked> <span>Essai gratuit puis abonnement</span></label>
-<label class="check"><input type="radio" name="model" value="direct"> <span>Achat ou abonnement direct, sans essai</span></label></fieldset>
-<div id="trial-fields" class="f"><label for="trialRate">Installations qui démarrent un essai (%)</label><input id="trialRate" name="trialRate" type="number" step="0.1" min="0" max="100" value="6.5" inputmode="decimal">
-<label for="trialToPaid" style="margin-top:10px">Essais qui deviennent payants (%)</label><input id="trialToPaid" name="trialToPaid" type="number" step="0.1" min="0" max="100" value="30" inputmode="decimal"></div>
+<label class="check"><input type="radio" name="model" value="direct"> <span>Achat ou abonnement sans essai</span></label></fieldset>
+<div id="trial-fields" class="f pair"><div><label for="trialRate">Installations qui démarrent un essai (%)</label><input id="trialRate" name="trialRate" type="number" step="0.1" min="0" max="100" value="6.5" inputmode="decimal">
+</div><div><label for="trialToPaid">Essais qui deviennent payants (%)</label><input id="trialToPaid" name="trialToPaid" type="number" step="0.1" min="0" max="100" value="30" inputmode="decimal"></div></div>
 <div id="direct-fields" class="f" hidden><label for="directRate">Installations qui deviennent payantes (%)</label><input id="directRate" name="directRate" type="number" step="0.1" min="0" max="100" value="2" inputmode="decimal"></div>
-<div class="f"><label for="arpu">Revenu moyen par payant sur la période (prix payé, TVA comprise)</label><input id="arpu" name="arpu" type="number" step="0.01" min="0" value="40" inputmode="decimal"><p class="hint">Exemple : 4,99 par mois payé en moyenne 8 mois = 39,92.</p></div>
+<div class="f"><label for="arpu">Revenu par payant, TVA comprise</label><input id="arpu" name="arpu" type="number" step="0.01" min="0" value="40" inputmode="decimal"></div>
+<div class="f calc-go"><button class="btn" type="submit">Calculer le seuil</button></div>
+<details class="more" data-faq="plus-options"><summary>Plus d'options : devise, TVA, commission du store, remboursements</summary>
+<div class="calc">
+<div class="f"><label for="currency">Devise</label><select id="currency" name="currency"><option value="€">Euro (€)</option><option value="$">Dollar ($)</option></select></div>
 <div class="f"><label for="vat">TVA comprise dans le prix (%)</label><input id="vat" name="vat" type="number" step="0.1" min="0" max="50" value="20" inputmode="decimal"><p class="hint">20 en France ; 0 pour un prix affiché hors taxe (États-Unis).</p></div>
 <div class="f"><label for="storePreset">Commission du store</label><select id="storePreset" name="storePreset"><option value="15">15 % : Apple Small Business Program, Google Play abonnements</option><option value="30">30 % : Apple, première année d'abonnement hors programme</option><option value="">Autre taux</option></select>
 <input id="storeFee" name="storeFee" type="number" step="0.1" min="0" max="100" value="15" aria-label="Commission du store (%)" style="margin-top:8px"></div>
 <div class="f"><label for="refund">Remboursements (% des paiements)</label><input id="refund" name="refund" type="number" step="0.1" min="0" max="100" value="4" inputmode="decimal"></div>
-<div class="f" style="align-self:end"><button class="btn" type="submit">Calculer le seuil</button></div>
+</div>
+</details>
 </form>
-<p class="hint">Les valeurs par défaut sont un exemple proche des médianes publiées, pas une prévision. Le calcul se fait dans votre navigateur : rien de ce que vous saisissez n'est envoyé.</p>
+<p class="hint">Revenu moyen par payant : par exemple 4,99 par mois payé en moyenne 8 mois = 39,92. Les valeurs par défaut sont un exemple proche des médianes publiées, pas une prévision. Le calcul se fait dans votre navigateur : rien de ce que vous saisissez n'est envoyé.</p>
 </section>
 <div id="calc-out" hidden aria-live="polite"></div>
 

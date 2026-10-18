@@ -115,3 +115,21 @@ html[data-xp-price="b"] .tier-390 { order: -1; }
 .rec { display: none; }
 html:not([data-xp-price="b"]) .tier-690 .rec, html[data-xp-price="b"] .tier-390 .rec { display: inline-block; }
 .calc fieldset { border: 0; padding: 0; margin: 0; }
+
+/* Secondary inputs folded under the button so the tool fits the first mobile screen (2026-10-19). */
+.calc .more { grid-column: 1 / -1; }
+.calc .more summary { cursor: pointer; color: var(--muted); padding: 4px 0; }
+.calc .more .calc { margin-top: 12px; }
+.calc .calc-go { align-self: end; }
+.calc .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; align-items: end; }
+.calc .model label.check { display: inline-flex; margin-right: 14px; }
+@media (max-width: 520px) {
+  .top .wrap { padding-top: 8px; padding-bottom: 8px; gap: 4px 14px; }
+  .top nav { font-size: 0.88rem; gap: 2px 12px; }
+  h1 { margin: 0.3em 0 0.3em; }
+  .lead { font-size: 1rem; margin: 0 0 10px; }
+  .calc { gap: 8px 16px; }
+  form .f { margin: 0 0 8px; }
+  label { font-size: 0.95rem; }
+  .calc .pair label { min-height: 2.6em; }
+}
