@@ -30,7 +30,8 @@ for (const f of files) {
   if (!h.includes(`data-site="${SITE.site}"`) || !h.includes(`data-api="${SITE.api}"`)) err(f, 'cro.js tag');
   if (!/assets\/mesure\.js\?v=/.test(h)) err(f, 'mesure.js');
   if (!h.includes('<a href="https://jalonel.com/">Une marque Jalonel</a>')) err(f, 'Jalonel footer');
-  if (/outils\.vread\.fr\/|vread-corp\.github\.io/.test(h.replace(/data-hosts="[^"]*"/, ''))) err(f, 'old URL');
+  if (/vread/i.test(h.replace(/https:\/\/github\.com\/VREAD-corp\/[\w.-]+/g, ''))) err(f, 'mentions Vread (Jalonel and Vread are kept apart)');
+  if (!h.includes(`data-hosts="${new URL(SITE.origin).hostname}"`)) err(f, 'cro.js data-hosts: the Jalonel host only');
   if (!h.includes('window.OCTAVE_XP')) err(f, 'OCTAVE_XP');
   for (const m of h.matchAll(/<script[^>]+src="([^"]+)"/g)) if (/^(https?:)?\/\//.test(m[1])) err(f, 'third-party script ' + m[1]);
   for (const m of h.matchAll(/<link[^>]+href="(https?:[^"]+)"/g)) if (!m[0].includes('canonical')) err(f, 'external stylesheet/link ' + m[1]);
@@ -56,13 +57,16 @@ for (const f of files) {
 // anti-AI grid: every page >= 85 and no banned phrase / unverified claim (verdict OK)
 const lint = JSON.parse(execFileSync('node', [path.join(ROOT, 'tools/lint-ia.mjs'), '--json', '--min', '0', DOCS], { encoding: 'utf8' }));
 for (const r of lint) if (!r.skipped && r.file.endsWith('.html') && (r.score < 85 || r.verdict !== 'OK')) errors.push(r.file + ': lint-ia ' + r.score + ' ' + r.verdict);
-// cro.js byte-identical to the master copy when it is available (local runs)
-const master = path.join(ROOT, '../octave-checkout/gas/web/cro.js');
-if (fs.existsSync(master)) assert.equal(fs.readFileSync(path.join(DOCS, 'assets/cro.js'), 'utf8'), fs.readFileSync(master, 'utf8'), 'cro.js differs from octave-checkout/gas/web/cro.js');
+// cro.js byte-identical to the master copy for the Jalonel sites when it is available (local runs)
+const master = path.join(ROOT, '../octave-checkout/gas/web/jalonel/cro.js');
+if (fs.existsSync(master)) assert.equal(fs.readFileSync(path.join(DOCS, 'assets/cro.js'), 'utf8'), fs.readFileSync(master, 'utf8'), 'cro.js differs from octave-checkout/gas/web/jalonel/cro.js');
 assert.equal(fs.readFileSync(path.join(DOCS, 'CNAME'), 'utf8').trim(), new URL(SITE.origin).hostname, 'CNAME');
 for (const k of SITE.indexNowKeys || []) assert.equal(fs.readFileSync(path.join(DOCS, k + '.txt'), 'utf8'), k, 'IndexNow key file');
 assert.ok(fs.readFileSync(path.join(DOCS, 'sitemap.xml'), 'utf8').includes('<loc>' + SITE.origin + '/</loc>'), 'sitemap on the new origin');
 const mesure = fs.readFileSync(path.join(DOCS, 'assets/mesure.js'), 'utf8');
+// served files never mention Vread (Jalonel and Vread are kept apart) and give contact@jalonel.com as the contact
+(function walkAll(d) { for (const f of fs.readdirSync(d)) { const p = path.join(d, f); if (fs.statSync(p).isDirectory()) walkAll(p); else if (/\.(html|js|css|json|xml|txt|svg)$/.test(f)) assert.ok(!/vread/i.test(fs.readFileSync(p, 'utf8').replace(/https:\/\/github\.com\/VREAD-corp\/[\w.-]+/g, '')), path.relative(DOCS, p) + ' mentions Vread'); } })(DOCS);
+assert.ok(fs.readFileSync(path.join(DOCS, 'mentions-legales/index.html'), 'utf8').includes('mailto:contact@jalonel.com'), 'contact address in the legal notice');
 assert.ok(mesure.includes("v:2") && mesure.includes(`site:'${SITE.site}'`) && mesure.includes(SITE.api) && mesure.includes('octave_notrack') && mesure.includes(`l.hostname!='${new URL(SITE.origin).hostname}'`), 'mesure.js');
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
 console.log(`site checks ok: ${files.length} pages, lint-ia >= 85 on all`);

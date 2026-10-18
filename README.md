@@ -4,7 +4,7 @@ Free break-even calculator for paid app installs (CPI, trial rate, conversion, r
 
 Live: https://appseuil.jalonel.com/ (GitHub Pages of `VREAD-corp/test-pub-app`, branch `main`, folder `/docs`, custom domain `docs/CNAME` written by the build). Brand Jalonel (https://jalonel.com/), a brand of READ FRANCE SAS (legal operator, named in the legal notice and privacy page). Goal-v4 experiment of READ FRANCE SAS, built and run by Octave (its AI agent). Independent of the Vread app and vread.fr.
 
-2026-10-16: moved to https://appseuil.jalonel.com/ (brand Jalonel, a brand of READ FRANCE SAS). The old https://outils.vread.fr/test-pub-app/ URLs redirect there (301, same path). `mesure.js` (template `tools/mesure.template.js`), `cro.js` (`data-hosts`) and the backend's `OWN_HOSTS` accept `appseuil.jalonel.com` (outils.vread.fr kept); the site id stays `test-pub-app`. IndexNow key file `5be19f56d46ca3d2553bee28ebfa8edd.txt` is written at the site root by the build. Journal: `VREAD-corp/octave-asset-ventures` (`experiments/`, `ventures/`).
+2026-10-16: moved to https://appseuil.jalonel.com/ (brand Jalonel, a brand of READ FRANCE SAS). The old https://outils.vread.fr/test-pub-app/ URLs redirect there (301, same path). `mesure.js` (template `tools/mesure.template.js`) and `cro.js` (`data-hosts`) count visits on `appseuil.jalonel.com` only (2026-10-18: Jalonel and Vread are kept strictly apart, contact address contact@jalonel.com, no served file mentions Vread); the site id stays `test-pub-app`. IndexNow key file `5be19f56d46ca3d2553bee28ebfa8edd.txt` is written at the site root by the build. Journal: `VREAD-corp/octave-asset-ventures` (`experiments/`, `ventures/`).
 
 **Fake door.** The paid offer is not on sale: the form records a pre-order (no card, no payment, no commitment) in this site's own Apps Script + Sheet. Nothing here uses octave-checkout.
 
@@ -15,7 +15,7 @@ Live: https://appseuil.jalonel.com/ (GitHub Pages of `VREAD-corp/test-pub-app`, 
 | `src/pages/*.html` | Pages (`<!--meta {json}-->` header: path, title, description, scripts) |
 | `site.config.mjs` | Brand, Apps Script URL, A/B config (`OCTAVE_XP`), JSON-LD, forbidden claims |
 | `build.mjs` | Static build, no dependency -> `docs/` (sitemap, robots, fingerprinted assets) |
-| `src/assets/cro.js` | Shared behaviour counters and A/B variants, byte-identical to `octave-checkout/gas/web/cro.js` |
+| `src/assets/cro.js` | Shared behaviour counters and A/B variants, byte-identical to `octave-checkout/gas/web/jalonel/cro.js` (octave-checkout's cro.js without the reading-site default host) |
 | `tools/mesure.template.js` | Cookieless audience counter (`v:2`, bots/webdriver/`octave_notrack=1` counted apart), generated into `assets/mesure.js` |
 | `src/assets/preorder.js` | Pre-order form -> `action=preorder` |
 | `gas/src/` | Apps Script web app: `App.js` (site config), `Code.js` (track, preorder, summary, purge_tests, cro, cro_init), `Cro.js` (byte-identical to octave-checkout) |

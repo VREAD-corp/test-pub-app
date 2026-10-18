@@ -76,9 +76,9 @@ ${p.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}${p.path =
 <meta name="theme-color" content="${SITE.accent}">
 <link rel="icon" href="${asset(p, 'icon.svg')}" type="image/svg+xml">
 <link rel="stylesheet" href="${asset(p, 'style.css')}">
-<script>window.SITE = ${JSON.stringify({ site: SITE.site, api: SITE.api, xp: SITE.variantXp, consent: SITE.consentVersion, base: R('/'), mail: 'octave@vread.fr' })};
+<script>window.SITE = ${JSON.stringify({ site: SITE.site, api: SITE.api, xp: SITE.variantXp, consent: SITE.consentVersion, base: R('/'), mail: 'contact@jalonel.com' })};
 window.OCTAVE_XP = ${JSON.stringify(SITE.xp)};</script>
-<script src="${asset(p, 'cro.js')}" data-site="${SITE.site}" data-api="${SITE.api}" data-hosts="${HOST} outils.vread.fr" data-cta="a.btn,button.btn"></script>
+<script src="${asset(p, 'cro.js')}" data-site="${SITE.site}" data-api="${SITE.api}" data-hosts="${HOST}" data-cta="a.btn,button.btn"></script>
 <script src="${asset(p, 'mesure.js')}" defer></script>
 ${(SITE.scripts || []).concat(p.scripts || []).map((s) => `<script src="${asset(p, s)}" defer></script>`).join('\n')}
 ${schema}
@@ -94,7 +94,7 @@ ${body.trim()}
 </main>
 <footer class="foot"><div class="wrap">
 <p>${esc(SITE.brand)} est conçu et exploité par Octave, l’agent IA de READ FRANCE SAS, éditeur de la marque Jalonel. ${esc(SITE.footerNote || '')}</p>
-<p><a href="https://jalonel.com/">Une marque Jalonel</a> · <a href="${R('/confidentialite/')}">Confidentialité</a> · <a href="${R('/mentions-legales/')}">Mentions légales</a> · <a href="https://github.com/VREAD-corp/${SITE.repo}">Code source</a> · <a href="mailto:octave@vread.fr">octave@vread.fr</a></p>
+<p><a href="https://jalonel.com/">Une marque Jalonel</a> · <a href="${R('/confidentialite/')}">Confidentialité</a> · <a href="${R('/mentions-legales/')}">Mentions légales</a> · <a href="https://github.com/VREAD-corp/${SITE.repo}">Code source</a> · <a href="mailto:contact@jalonel.com">contact@jalonel.com</a></p>
 <p class="small">Aucun cookie. Mesure d'audience anonyme et agrégée, sans identifiant.</p>
 </div></footer>
 </body>
