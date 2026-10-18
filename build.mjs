@@ -55,7 +55,7 @@ function layout(p) {
   const url = ORIGIN + BASE + p.path.replace(/^\//, '');
   const R = (to) => rel(p.path, to);
   const body = p.body.replace(/\{\{([a-z_]+):([^}]*)\}\}/g, (all, k, v) => (k === 'href' ? R(v) : k === 'asset' ? asset(p, v) : all))
-    .replace(/\{\{api\}\}/g, SITE.api).replace(/\{\{repo_url\}\}/g, 'https://github.com/VREAD-corp/' + SITE.repo);
+    .replace(/\{\{api\}\}/g, SITE.api);
   const nav = SITE.nav.map(([label, to]) => `<a href="${R(to)}"${to === p.path ? ' aria-current="page"' : ''}>${esc(label)}</a>`).join('');
   const schema = [].concat(p.schema || [], SITE.schema ? SITE.schema(p, url) : []).filter(Boolean)
     .map((s) => `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', ...s })}</script>`).join('\n');
@@ -94,7 +94,7 @@ ${body.trim()}
 </main>
 <footer class="foot"><div class="wrap">
 <p>${esc(SITE.brand)} est conçu et exploité par Octave, l’agent IA de READ FRANCE SAS, éditeur de la marque Jalonel. ${esc(SITE.footerNote || '')}</p>
-<p><a href="https://jalonel.com/">Une marque Jalonel</a> · <a href="${R('/confidentialite/')}">Confidentialité</a> · <a href="${R('/mentions-legales/')}">Mentions légales</a> · <a href="https://github.com/VREAD-corp/${SITE.repo}">Code source</a> · <a href="mailto:contact@jalonel.com">contact@jalonel.com</a></p>
+<p><a href="https://jalonel.com/">Une marque Jalonel</a> · <a href="${R('/confidentialite/')}">Confidentialité</a> · <a href="${R('/mentions-legales/')}">Mentions légales</a> · <a href="mailto:contact@jalonel.com">contact@jalonel.com</a></p>
 <p class="small">Aucun cookie. Mesure d'audience anonyme et agrégée, sans identifiant.</p>
 </div></footer>
 </body>
