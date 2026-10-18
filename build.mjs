@@ -66,7 +66,7 @@ function layout(p) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(p.title)}</title>
 <meta name="description" content="${esc(p.description)}">
-${p.noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${url}">`}
+${p.noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}${p.path === '/404.html' ? '' : `<link rel="canonical" href="${url}">`}
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="${esc(SITE.brand)}">

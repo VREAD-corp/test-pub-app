@@ -21,7 +21,9 @@ for (const f of files) {
   const d = h.match(/<meta name="description" content="([^"]*)"/);
   if (!d || d[1].length < 50 || d[1].length > 200) err(f, 'description length ' + (d ? d[1].length : 0));
   if ((h.match(/<h1[\s>]/g) || []).length !== 1) err(f, 'exactly one h1');
-  if (!is404) {
+  const noindex = /<meta name="robots" content="noindex/.test(h);
+  if (!is404 && noindex && sitemap.includes('<loc>' + SITE.origin)) { const c0 = h.match(/<link rel="canonical" href="([^"]+)"/); if (c0 && sitemap.includes('<loc>' + c0[1] + '</loc>')) err(f, 'noindex page in sitemap'); }
+  if (!is404 && !noindex) {
     const c = h.match(/<link rel="canonical" href="([^"]+)"/);
     if (!c) err(f, 'canonical'); else if (!c[1].startsWith(SITE.origin + '/')) err(f, 'canonical not on ' + SITE.origin); else if (!sitemap.includes('<loc>' + c[1] + '</loc>')) err(f, 'not in sitemap: ' + c[1]);
   }
