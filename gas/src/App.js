@@ -2,7 +2,7 @@
 var APP = {
   name: 'AppSeuil',
   site: 'test-pub-app',
-  host: 'appseuil.jalonel.com',               // public site (brand Jalonel); outils.vread.fr/<site>/ redirects here
+  host: 'appseuil.jalonel.com',               // public site (brand Jalonel)
   tz: 'Europe/Paris',
   sheetTitle: 'AppSeuil : pré-commandes et statistiques (READ FRANCE SAS)',
   consentVersion: 'pc-2026-10-13',

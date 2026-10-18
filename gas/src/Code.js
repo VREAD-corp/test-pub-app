@@ -26,7 +26,7 @@ var STATS_KEYS = 9;
 var EXCL_HEADER = ['date', 'site', 'page', 'event', 'reason', 'count', 'mobile', 'desktop', 'updated_at'];
 var EXCL_KEYS = 5;
 var EXCL_REASONS = ['webdriver', 'bot', 'notrack', 'legacy'];
-var OWN_HOSTS = [APP.host, 'jalonel.com', 'outils.vread.fr', 'vread-corp.github.io'];
+var OWN_HOSTS = [APP.host, 'jalonel.com'];   // Jalonel only: the reading sites are a separate brand (referrals from them are external)
 // EU member states other than France: interest is recorded (demand signal) but cannot be invoiced today.
 var EU_OTHER = ['AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'GR', 'HR', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'MC', 'EU'];
 

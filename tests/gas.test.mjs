@@ -125,4 +125,16 @@ assert.ok(sheets.Comportement.rows.length >= 3);
 assert.ok(sheets.Experiences.rows.length >= 2);
 assert.notEqual(post({ action: 'track', kind: 'cro', v: 2, site: 'other', page: '/', e: [['pv', '', '']] }).ok, true);
 
+// Jalonel and Vread are kept apart: the backend never mentions Vread, sends no e-mail today (any future user-facing
+// e-mail must reply to contact@jalonel.com), and only the Jalonel hosts count as internal referrers.
+for (const f of fs.readdirSync(ROOT)) {
+  const s = fs.readFileSync(new URL(f, ROOT), 'utf8');
+  assert.ok(!/vread/i.test(s), f + ' mentions Vread');
+  if (/MailApp|GmailApp/.test(s)) assert.ok(/replyTo:\s*'contact@jalonel\.com'/.test(s), f + ': user-facing e-mails reply to contact@jalonel.com');
+}
+assert.equal(ctx.sourceOf_({ ref_domain: APP.host }), '(internal)');
+assert.equal(ctx.sourceOf_({ ref_domain: 'jalonel.com' }), '(internal)');
+assert.equal(ctx.sourceOf_({ ref_domain: 'www.example.org' }), 'example.org');
+assert.ok(!JSON.stringify(get({ action: 'ping' })).match(/vread/i), 'ping answer');
+
 console.log('gas tests ok (' + APP.site + ')');
